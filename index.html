@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!--
+/*
+The MIT License (MIT)
+
+Copyright (c) 2013 Vincent Chu.  chuvincent@gmail.com.  http://www.vincentchu.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Word Tile</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+    <!-- Le styles -->
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap.custom.css" rel="stylesheet">
+    <!--<link href="css/bootstrap-responsive.css" rel="stylesheet">-->
+    <link href="css/game.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="ico/favicon.png">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" id="gamenavbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" id="brandTitle" data-toggle="collapse" data-target=".nav-collapse">WordTile</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a id="menuLink" href="#">Link</a></li>
+              <li class="active"><a id="menuInstructions" href="#">How</a></li>
+              <li><a id="menuStats" href="#">Stats</a></li>
+              <!--<li class="active"><a id="menuDebug" href="#">Debug</a></li>-->
+              <li class="active"><a href="http://www.vincentchu.com">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--container-->
+      </div>
+    </div>
+<div class="container-fluid" id="gamecontrol">
+  <div class="row-fluid">
+      <div class="span2" id="playerName"></div>
+      <div class="span1" id="playerScore"></div>
+      <div class="span2" id="opponentName"></div>
+      <div class="span1" id="opponentScore"></div>
+      <div class="span4">
+        <button class="gamecontrolbutton" id="btnReset">Reset</button>
+        <button class="gamecontrolbutton" id="btnSubmit">Submit</button>
+        <!--<button id="btnTest">Test</button>-->
+      </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+	<div class="row-fluid top-bottom-pad" id="divWordArea">
+
+   </div>
+</div>
+<div class="container-fluid" id="gamegrid">
+  <div class="row-fluid top-bottom-pad gamerow">
+    <!--<div class="span2"><img src="http://placehold.it/300x300"/></div>-->
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t00">W</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t01">E</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t02">L</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t03">C</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t04">O</div></div>
+  </div>
+  <div class="row-fluid top-bottom-pad gamerow">
+    <!--<div class="span2"><img src="http://placehold.it/300x300"/></div>-->
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t10">M</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t11">E</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t12">W</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t13">E</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t14">L</div></div>
+  </div>
+  <div class="row-fluid top-bottom-pad gamerow">
+    <!--<div class="span2"><img src="http://placehold.it/300x300"/></div>-->
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t20">C</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t21">O</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t22">M</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t23">E</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t24">W</div></div>
+  </div>
+  <div class="row-fluid top-bottom-pad gamerow">
+    <!--<div class="span2"><img src="http://placehold.it/300x300"/></div>-->
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t30">E</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t31">L</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t32">C</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t33">O</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t34">M</div></div>
+  </div>
+  <div class="row-fluid top-bottom-pad gamerow">
+    <!--<div class="span2"><img src="http://placehold.it/300x300"/></div>-->
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t40">E</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t41">W</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t42">E</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext player" id="t43">L</div></div>
+    <div class="span2"><div class="boardtile gametile gametiletext opponent" id="t44">C</div></div>
+  </div>
+</div> 
+	<!-- /container -->
+
+<!--<div id="debugStatus"></div>-->
+<div class="pagination-centered hide" id="statusFooter">
+    <a class="btn btn-info" id="btnNudgeViaFacebook">
+      Nudge your opponent via Facebook
+    </a>
+</div>
+     <!-- /container -->
+     
+     <!-- dialogs  -->
+           <!-- setup modal -->
+           <div id="setupModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header" id="setupModalHeader">
+              <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+              <h3 id="setupModalLabel">Welcome<!--placeholder--></h3>  
+            </div>
+            <div class="modal-body" id="setupModalBody">
+              <div id="setupModalBodyText">Enjoy!<!--placeholder--></div>  
+              <div id="fb-root"></div>
+              <!-- These forms are hidden and shown depending on the state -->
+              <form class="form-horizontal" id="setupGameIdForm">
+                 <div class="control-group">
+                    <label class="control-label" for="inputGameId">Game room</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Game room" id="inputGameId">
+                      <select id="inputGameIdDropdown">
+                      </select>
+                    </div>
+                 </div>
+                 <div class="control-group">
+                    <label class="control-label" for="inputGameLanguage">Tiles</label>
+                    <div class="controls">
+                      <select id="inputGameLanguage">
+                          <option value="en">English</option>
+                          <option value="jp">Japanese</option>
+                          <option value="ma">Math</option>
+                      </select>
+                    </div>
+                </div>
+                <!--<button type="submit" class="btn">Go to game</button>-->
+              </form>
+              
+              <form class="form-horizontal" id="setupSignUpForm">
+                <div class="control-group">
+                  <label class="control-label" for="inputUsername">Name</label>
+                  <div class="controls">
+                    <input type="text" id="inputUsername" placeholder="Nickname in this room">
+                    <input type="hidden" id="inputFbUserid">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="control-label" for="inputPassword">Password</label>
+                  <div class="controls">
+                    <input type="password" id="inputPassword" placeholder="Simple Password (Optional)">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <div class="controls">
+                    <label class="checkbox">
+                      <input type="checkbox" id="inputRemberLogin" checked> Remember me
+                    </label>
+                   <!-- <button type="submit" class="btn">Sign in</button>-->
+                  </div>
+                </div>
+              </form>
+              
+              <form class="form-horizontal" id="setupGameShare">
+                 <div class="control-group">
+                    <label class="control-label" for="inputGameURL">Sharing the link</label>
+                    <div class="controls">
+                      <input type="text" id="inputGameURL" readonly/>
+                    </div>
+                 </div>
+                 <div class="control-group">
+                    <label class="control-label" for="inputGameFacebook">Request via Facebook</label>
+                    <div class="controls">
+                      <input type="button" id="inputGameFacebook" value="Send Game Request to your friend!"/>
+                    </div>
+                 </div>
+                <!--<button type="submit" class="btn">Go to game</button>-->
+              </form>
+              <!-- end forms -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn" id="setupModalStart">Another room</button>
+              <button type="button" class="btn" id="setupModalFacebook">Login via Facebook</button>
+              <button type="button" class="btn btn-primary" id="setupModalPrimary">Continue</button>
+            </div>
+          </div>
+        <!-- end setup modal -->
+        
+        <!-- user feedback -->
+        <div id="feedbackModal" class="modal hide fade">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="feedbackModalLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <div id="feedbackModalBodyText"><!--placeholder--></div>  
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn"  data-dismiss="modal" aria-hidden="true">Close</a>
+          </div>
+        </div>
+        <!-- end user feedback -->
+        
+        <!-- Link to game room -->
+        <div id="linkModal" class="modal hide fade">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="linkModalLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <div id="linkModalBodyText">With the following link you can play on any browser, mobile or desktop, and within or without Facebook.</div> 
+            <form class="form-horizontal">
+                 <div class="control-group">
+                    <label class="control-label" for="inputGameURLLink">Sharing the link</label>
+                    <div class="controls">
+                      <input type="text" id="inputGameURLLink" readonly/>
+                    </div>
+                 </div>
+            </form> 
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn"  data-dismiss="modal" aria-hidden="true">Close</a>
+          </div>
+        </div>
+        <!-- end link to game room -->
+        
+        <!-- statistics -->
+        <div id="statsModal" class="modal hide fade">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="statsModalLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <div id="statsModalBodyText">
+              <table class="table table-striped table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Categories</th>
+                      <th>Words left</th>
+                    </tr>
+                  </thead>
+                  <tbody id="statsModalTableBody">
+                  </tbody>
+              </table>
+              <table class="table table-striped table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Word Length</th>
+                      <th>Words left</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lengthStatsModalTableBody">
+                  </tbody>
+              </table>
+              <table class="table table-striped table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Used Words</th>
+                      <th>Submitted By</th>
+                    </tr>
+                  </thead>
+                  <tbody id="allSubmissionsTableBody">
+                  </tbody>
+              </table>
+            </div>  
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn"  data-dismiss="modal" aria-hidden="true">Close</a>
+          </div>
+        </div>
+        <!-- end user feedback -->
+        
+        <!-- statistics -->
+        <div id="debugModal" class="modal hide fade">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="debugModalLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <div id="debugModalBodyText">
+              <table class="table table-striped table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Variables</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody id="debugModalTableBody">
+                  </tbody>
+              </table>
+            </div>  
+            <div id="debugModalExtraText">
+            
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn"  data-dismiss="modal" aria-hidden="true">Close</a>
+          </div>
+        </div>
+        <!-- end statistics -->
+   
+     <!-- end dialogs -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="js/jquery-1.8.3.min.js"></script>-->
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <!--<script src="js/bootbox.min.js"></script>-->
+    <script src="js/purl.js"></script>
+   <!-- <script src="js/jquery.fitText.js"></script>-->
+    <script src="https://connect.facebook.net/en_US/all.js"></script>
+    <script src="js/game.japanese.js"></script>
+    <script src="js/game.score.js"></script>
+    <script src="js/game.storage.js"></script>
+    <script src="js/game.helper.js"></script>
+    <script src="js/game.menu.js"></script>
+    <script src="js/game.ui.js"></script>
+    <script src="js/game.facebook.js"></script>
+    <script src="js/game.setup.js"></script>
+    <script src="js/game.idle.js"></script>
+    <script src="js/game.control.js"></script>
+  </body>
+</html>

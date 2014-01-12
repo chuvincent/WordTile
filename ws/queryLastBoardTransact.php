@@ -1,3 +1,6 @@
+<?php
+
+/*
 The MIT License (MIT)
 
 Copyright (c) 2013 Vincent Chu.  chuvincent@gmail.com.  http://www.vincentchu.com
@@ -19,12 +22,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+*/
 
-WordTile
-========
+include 'db.php';
+$gameid = $db->real_escape_string($_POST['gameId']);
+$lastKnownId = $db->real_escape_string($_POST['lastKnownId']);
+$time = time();
+do {
+	#Get latest transaction
+	$statement = $db->prepare("SELECT `boardtransactid` FROM `boardtransact` WHERE `gameid` = ? AND `boardtransactid` >= ? ORDER BY `boardtransactid` DESC");
+	$statement->bind_param('si', $gameid, $lastKnownId);
+	$statement->execute();
+	$statement->bind_result($transactId);
+	$hasRow = $statement->fetch();
+	$statement->close();
+	$result = array();
+	if ($hasRow && $lastKnownId != $transactId){
+		break;
+	}
+	usleep(3000000);
+} while((time() - $time) < 15);
+if ($hasRow){
+	$result["transactId"] = $transactId;
+}
+else
+{
+	$result["transactId"] = -1;
+}
+$result["success"] = 1;
 
-WordTile is a web based version of the popular LetterPress game with some improvements, completed with Facebook login and multi-language support.  One of the major goals of the game is to help me improve my Japanese, as the game can be played in Japanese with hiragana letter tiles.  There is also a huge emphasis on cross-platform / cross-browser compatibility and the game works correctly and beautifully both on desktop and on mobile devices.
+echo json_encode($result);
 
-A lot of the user interface heavy lifting is done using the Twitter bootstrap framework, and the core mechanics are done using javascript on the browser client side.  The backend is done using php, providing simple RESTlike web services.
-
-For more details on the game, including screenshots and a working version, please visit http://www.vincentchu.com/wordtile.html
+?>

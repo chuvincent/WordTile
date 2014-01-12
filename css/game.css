@@ -1,0 +1,292 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2013 Vincent Chu.  chuvincent@gmail.com.  http://www.vincentchu.com.  chuvincent@gmail.com.  http://www.vincentchu.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
+/*dynamically created*/
+/*
+.wordtiletext{
+	font-size:50px;
+}
+
+.gametiletext{
+	font-size:100px;		
+}
+
+#divWordArea{
+	height: 50px;
+	padding: 10px;
+}
+*/
+/*end dynamically created*/
+
+/* setup */
+/*#setupModalHeader{
+	background-color:#9CF;	
+}*/
+
+/* modal responsive fix*/
+@media (max-width: 480px)
+{
+  .form-horizontal .control-label {
+    float: none;
+    width: auto;
+    padding-top: 0;
+    text-align: left;
+  }
+  .form-horizontal .controls {
+    margin-left: 0;
+  }
+  .form-horizontal .control-list {
+    padding-top: 0;
+  }
+  .form-horizontal .form-actions {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+@media (max-width: 767px) { 
+  .modal.fade {
+    top: -100px;
+  }
+  .modal.fade.in {
+    top: 20px;
+  }
+  
+  .modal {
+	position: absolute; 
+  	max-height: none;
+	top: 10px;
+	right: 10px;
+	left: 10px;
+	width: auto;
+	margin: 0;
+  }
+  .modal-body {
+	max-height: 350px;
+	padding: 15px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+   }
+}
+
+/* menu */
+#brandTitle{
+	cursor:pointer;
+}
+
+#inputGameURL
+{
+	cursor:text;
+}
+
+#inputGameURLLink
+{
+	cursor:text;
+}
+
+#inputGameId
+{
+	cursor:text;
+}
+
+#gamegrid
+{
+	display:none;
+}
+
+body{
+	background-image:url('../img/infinitemarble.png');
+}
+
+/* board tiles */
+.placeholder { width: 50px; height: 45px; display: block; float: left; }
+
+.scorescript { font-size: 30%; position: relative; top: -2em; left: 0.5em;}
+
+.boardtile{
+	vertical-align:middle;
+	text-align:center;
+	/*line-height: em;*/
+	line-height: normal;
+	background-color:white;
+	background-image:url('../img/white.jpg');
+	color: black;
+	box-shadow: 5px 5px 12px #888;
+}
+
+
+.opponent, #opponentName, #opponentScore{
+	background-color:#CC9;
+	color:black;
+	background-image:url('../img/lightbrown.jpg');
+	box-shadow: 5px 5px 12px #888;
+}
+
+.opponent.defended{
+	background-color:#960;
+	color:black;
+	background-image:url('../img/darkbrown.jpg');
+}
+
+.player, #playerName, #playerScore{
+	background-color:#0C9;
+	color:white;
+	background-image:url('../img/lightgreen.jpg');
+	box-shadow: 5px 5px 12px #888;
+}
+
+.player.defended{
+	background-color:#090;
+	color:white;
+	background-image:url('../img/darkgreen.jpg');
+}
+
+#playerName, #opponentName{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.glowable{
+	-webkit-transition: text-shadow 1s linear;
+    -moz-transition: text-shadow 1s linear;
+    -ms-transition: text-shadow 1s linear;
+    -o-transition: text-shadow 1s linear;
+    transition: text-shadow 1s linear;
+}
+.glowable:hover, .glow{
+	text-shadow: 0 0 15px yellow;	
+}
+
+.gametile{
+	/*background-color:#FFC;*/
+	border-width: thick;
+	min-width: 50px;
+	width: 100%;
+	/*min-height: 100px;*/
+	height: 100%;
+	/*max-width: 200px;
+	max-height: 150px;*/
+	cursor:default;
+}
+
+.gamerow{
+	 /*min-height: 100px;	*/
+}
+
+.wordtile{
+	/*background-color:#FCC;*/
+	border-width: thick;
+	min-width: 50px;
+	width: 100%;
+	/*min-height: 100px;*/
+	height: 100%;
+	/*max-width: 100px;
+	max-height: 150px;*/
+	cursor:default
+	/*float:left;*/
+}
+/*
+#gamegrid{
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;	
+cursor:default;
+}*/
+
+/*
+.row-min-height{
+	min-height: 100px;
+}
+
+.max-tile-width{
+	max-width: 500px;	
+}
+*/
+.top-bottom-pad{
+	padding-top: 0px;
+	padding-bottom: 0px;	
+}
+
+#gamecontrol div{
+	text-align:center;
+}
+
+#statusFooter{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* end board tiles */
+
+/* Button control */
+.gamecontrolbutton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+	background-color:#79bbff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 4px;
+	text-decoration:none;
+	text-shadow:1px 2px 0px #528ecc;
+	box-shadow: 5px 5px 12px #888;
+}
+.gamecontrolbutton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+	background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+	background-color:#378de5;
+}
+.gamecontrolbutton:active {
+	position:relative;
+	top:1px;
+}
+.gamecontrolbutton[disabled=disabled], .gamecontrolbutton:disabled {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aaa), color-stop(1, #777) );
+	background:-moz-linear-gradient( center top, #aaa 5%, #777 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaa', endColorstr='#777');
+	background-color:#777;
+	border:1px solid #777;
+	text-shadow:1px 2px 0px #777;
+}
+
+@media (min-width: 768px)
+{
+	.gamecontrolbutton {
+		padding:3px 25px;
+	}
+}

@@ -1,3 +1,6 @@
+// Copyright 2013 - Vincent Chu (chuvincent (at) gmail.com)
+
+/*
 The MIT License (MIT)
 
 Copyright (c) 2013 Vincent Chu.  chuvincent@gmail.com.  http://www.vincentchu.com
@@ -19,12 +22,55 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+*/
 
-WordTile
-========
-
-WordTile is a web based version of the popular LetterPress game with some improvements, completed with Facebook login and multi-language support.  One of the major goals of the game is to help me improve my Japanese, as the game can be played in Japanese with hiragana letter tiles.  There is also a huge emphasis on cross-platform / cross-browser compatibility and the game works correctly and beautifully both on desktop and on mobile devices.
-
-A lot of the user interface heavy lifting is done using the Twitter bootstrap framework, and the core mechanics are done using javascript on the browser client side.  The backend is done using php, providing simple RESTlike web services.
-
-For more details on the game, including screenshots and a working version, please visit http://www.vincentchu.com/wordtile.html
+var GameScore = {
+  SCORE: 
+  {
+	  en:
+	  {
+		  'a':1
+		  ,'b':3
+		  ,'c':3
+		  ,'d':2
+		  ,'e':1
+		  ,'f':4
+		  ,'g':2
+		  ,'h':4
+		  ,'i':1
+		  ,'j':8
+		  ,'k':5
+		  ,'l':1
+		  ,'m':3
+		  ,'n':1
+		  ,'o':1
+		  ,'p':3
+		  ,'q':10
+		  ,'r':1
+		  ,'s':1
+		  ,'t':1
+		  ,'u':1
+		  ,'v':4
+		  ,'w':4
+		  ,'x':8
+		  ,'y':4
+		  ,'z':10 
+	  } 
+  },
+  
+  getTileScore: function(tile, language){
+	  try{
+		var toReturn = GameScore.SCORE[language][tile];
+		if (toReturn){
+			return toReturn;
+		}
+		else {
+			return 0;
+		}
+	  }
+	  catch(err){
+		  return 0;  
+	  }
+  }
+  
+};

@@ -1,3 +1,6 @@
+<?php
+
+/*
 The MIT License (MIT)
 
 Copyright (c) 2013 Vincent Chu.  chuvincent@gmail.com.  http://www.vincentchu.com
@@ -19,12 +22,39 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+*/
 
-WordTile
-========
+function getRandomBoard($language){
+	include 'db.php';
+	$language = "'".$language."'";
+	$offset_result = $db->query( " SELECT FLOOR(RAND() * COUNT(*)) AS `offset` FROM `board` WHERE `language` = " .  $language);
+	$offset_row = $offset_result->fetch_object();
+	$offset = $offset_row->offset;
+	$offset_result->close();
+	$result = $db->query( " SELECT `boardid`, `boardtiles` FROM `board` WHERE `language` = " . $language . " LIMIT $offset, 1 " );	
+	$result_row = $result->fetch_object();
+	$result->close();
+	
+	return $result_row;
+}
 
-WordTile is a web based version of the popular LetterPress game with some improvements, completed with Facebook login and multi-language support.  One of the major goals of the game is to help me improve my Japanese, as the game can be played in Japanese with hiragana letter tiles.  There is also a huge emphasis on cross-platform / cross-browser compatibility and the game works correctly and beautifully both on desktop and on mobile devices.
+function str_shuffle_unicode($str) {
+    $tmp = preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY);
+    shuffle($tmp);
+    return join("", $tmp);
+}
 
-A lot of the user interface heavy lifting is done using the Twitter bootstrap framework, and the core mechanics are done using javascript on the browser client side.  The backend is done using php, providing simple RESTlike web services.
 
-For more details on the game, including screenshots and a working version, please visit http://www.vincentchu.com/wordtile.html
+function createBoard($gameid, $language){
+	include 'db.php';
+	$board = getRandomBoard($language);
+	$boardid = $board->boardid;
+	$boardtiles = str_shuffle_unicode($board->boardtiles);
+	$stmt = $db->stmt_init();
+	if($stmt->prepare("INSERT INTO `boardconfig` (`boardid`, `orderedtiles`, `gameid`) VALUES (?, ?, ?)")) {
+		$stmt->bind_param('iss', $boardid, $boardtiles, $gameid);
+		$stmt->execute();
+		$stmt->close();
+	}
+}
+?>

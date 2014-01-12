@@ -1,3 +1,6 @@
+<?php
+
+/*
 The MIT License (MIT)
 
 Copyright (c) 2013 Vincent Chu.  chuvincent@gmail.com.  http://www.vincentchu.com
@@ -19,12 +22,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+*/
 
-WordTile
-========
-
-WordTile is a web based version of the popular LetterPress game with some improvements, completed with Facebook login and multi-language support.  One of the major goals of the game is to help me improve my Japanese, as the game can be played in Japanese with hiragana letter tiles.  There is also a huge emphasis on cross-platform / cross-browser compatibility and the game works correctly and beautifully both on desktop and on mobile devices.
-
-A lot of the user interface heavy lifting is done using the Twitter bootstrap framework, and the core mechanics are done using javascript on the browser client side.  The backend is done using php, providing simple RESTlike web services.
-
-For more details on the game, including screenshots and a working version, please visit http://www.vincentchu.com/wordtile.html
+header('Content-Type: text/html;charset=utf-8');
+{
+	$db = new mysqli('DATABASE_DOMAIN_NAME_CHANGE_THIS', 'DATABASE_NAME_CHANGE_THIS', 'DATABASE_PASSWORD_CHANGE_THIS', 'DATABASE_NAME_CHANGE_THIS');
+}
+if($db->connect_errno > 0){
+    die('Unable to connect to database [' . $db->connect_error . ']');
+}
+$db->set_charset("utf8");
+?>
